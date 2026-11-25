@@ -5,31 +5,33 @@
 class Calendarctl < Formula
   desc "Modern calendar management for the terminal"
   homepage "https://github.com/thebuildlabs/calendarctl"
-  version "0.1.1"
+  version "0.1.2"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.1/calendarctl_0.1.1_darwin_amd64.tar.gz"
-      sha256 "f1485251772288a2da0b2af94460d2c24ea0446825ab6558739ca649615786ef"
+      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.2/calendarctl_0.1.2_darwin_amd64.tar.gz"
+      sha256 "66484e02702c567582f0a0d0a836c06f7a7bd5d1e2558b0dda94d955a13f9ba8"
 
       define_method(:install) do
         bin.install "calendarctl"
         if OS.mac?
           bin.install "EventKitBridge"
-          bin.install "EventKitBridge.app"
+          prefix.install "EventKitBridge.app"
+          bin.install_symlink prefix/"EventKitBridge.app" => "EventKitBridge.app"
         end
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.1/calendarctl_0.1.1_darwin_arm64.tar.gz"
-      sha256 "36aed855f7c6644786966c7c6f587df13fb48b3af8e1dae55ee6a3e74d960f5a"
+      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.2/calendarctl_0.1.2_darwin_arm64.tar.gz"
+      sha256 "3e6e2e69987d84a6670f370da7ca7f03d049da8012e5c5dbbba9b57b9b6a458b"
 
       define_method(:install) do
         bin.install "calendarctl"
         if OS.mac?
           bin.install "EventKitBridge"
-          bin.install "EventKitBridge.app"
+          prefix.install "EventKitBridge.app"
+          bin.install_symlink prefix/"EventKitBridge.app" => "EventKitBridge.app"
         end
       end
     end
@@ -37,24 +39,26 @@ class Calendarctl < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.1/calendarctl_0.1.1_linux_amd64.tar.gz"
-      sha256 "abf62b3111a14a259fdef57ab3e1ad84c484a558268718728e2c60b8e9dd53f6"
+      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.2/calendarctl_0.1.2_linux_amd64.tar.gz"
+      sha256 "265ecdcaade26b04b3bf669f1eaa89c13b983c0920e2ef3dea3752e0f744f595"
       define_method(:install) do
         bin.install "calendarctl"
         if OS.mac?
           bin.install "EventKitBridge"
-          bin.install "EventKitBridge.app"
+          prefix.install "EventKitBridge.app"
+          bin.install_symlink prefix/"EventKitBridge.app" => "EventKitBridge.app"
         end
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.1/calendarctl_0.1.1_linux_arm64.tar.gz"
-      sha256 "740bf76278c1a2e8655449041f9121fc62c335c7eba1ce077727b612bf7bc7b8"
+      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.2/calendarctl_0.1.2_linux_arm64.tar.gz"
+      sha256 "df961002538f8f74b2782d4e4f5c75c194b48f2aa47aca7e600c03e6237ed6c1"
       define_method(:install) do
         bin.install "calendarctl"
         if OS.mac?
           bin.install "EventKitBridge"
-          bin.install "EventKitBridge.app"
+          prefix.install "EventKitBridge.app"
+          bin.install_symlink prefix/"EventKitBridge.app" => "EventKitBridge.app"
         end
       end
     end
