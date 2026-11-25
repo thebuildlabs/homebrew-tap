@@ -5,13 +5,13 @@
 class Calendarctl < Formula
   desc "Modern calendar management for the terminal"
   homepage "https://github.com/thebuildlabs/calendarctl"
-  version "0.1.6"
+  version "0.1.7"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.6/calendarctl_0.1.6_darwin_amd64.tar.gz"
-      sha256 "b59911740c2587d86549f14c08ad86817d6c9ec5f3a80797be29604a34a083f4"
+      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.7/calendarctl_0.1.7_darwin_amd64.tar.gz"
+      sha256 "dbe3707f84d4c5631e4beee7cebf29f98ee48a61c220e90ba9df6688bf250049"
 
       define_method(:install) do
         bin.install "calendarctl"
@@ -23,8 +23,8 @@ class Calendarctl < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.6/calendarctl_0.1.6_darwin_arm64.tar.gz"
-      sha256 "a3a1935b5b558ad761723d4374eaf87219161d5de9cd77c42ce9031a6bd3dcf2"
+      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.7/calendarctl_0.1.7_darwin_arm64.tar.gz"
+      sha256 "66a03f3f2ae23adc4d06fdb6b2a4acc1ceb3f948a4210e9663ae9ed608a503b9"
 
       define_method(:install) do
         bin.install "calendarctl"
@@ -39,8 +39,8 @@ class Calendarctl < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.6/calendarctl_0.1.6_linux_amd64.tar.gz"
-      sha256 "5fd228c6cb51854830f5b6f9725c6cf1cb9366fda7364ddf5351b8db3b267280"
+      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.7/calendarctl_0.1.7_linux_amd64.tar.gz"
+      sha256 "1a1e7fca89bed72bf18ae91832b12d5e3dbc2ab26d67a2b2f922ad4a4bc76152"
       define_method(:install) do
         bin.install "calendarctl"
         if OS.mac?
@@ -51,8 +51,8 @@ class Calendarctl < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.6/calendarctl_0.1.6_linux_arm64.tar.gz"
-      sha256 "3733c5d463ba107ebceff26f3b4a979fac5ce39e4a733d9492775e501b94fafa"
+      url "https://github.com/thebuildlabs/calendarctl/releases/download/v0.1.7/calendarctl_0.1.7_linux_arm64.tar.gz"
+      sha256 "18a89021ae945d11ba113fbc843fec7911c96ac0f5408234fe0892c1a7b3f7fe"
       define_method(:install) do
         bin.install "calendarctl"
         if OS.mac?
@@ -70,8 +70,11 @@ class Calendarctl < Formula
       unless system("codesign", "--verify", "--strict", helper, out: File::NULL, err: File::NULL)
         # CI's codesign can leave the embedded Info.plist unbound; the
         # installing Mac's codesign produces a valid ad-hoc signature.
+        # Homebrew installs binaries 0555, so make it writable first.
+        FileUtils.chmod(0o755, helper)
         system "codesign", "--force", "--sign", "-", "--identifier",
                "com.thebuildlabs.calendarctl.bridge", helper
+        FileUtils.chmod(0o555, helper)
       end
     end
   end
